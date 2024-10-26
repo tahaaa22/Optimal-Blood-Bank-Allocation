@@ -14,8 +14,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1176, 768)
-        MainWindow.setMinimumSize(QtCore.QSize(931, 734))
+        MainWindow.resize(1451, 834)
+        MainWindow.setMinimumSize(QtCore.QSize(1448, 834))
+        MainWindow.setMaximumSize(QtCore.QSize(1455, 837))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Assets/blood-bag.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -29,31 +30,42 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.centralwidget.setObjectName("centralwidget")
-        self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
-        self.gridLayout.setObjectName("gridLayout")
         self.Seconds_LCD = QtWidgets.QLCDNumber(self.centralwidget)
+        self.Seconds_LCD.setGeometry(QtCore.QRect(700, 10, 80, 30))
         self.Seconds_LCD.setMaximumSize(QtCore.QSize(80, 30))
+        font = QtGui.QFont()
+        font.setBold(False)
+        font.setWeight(50)
+        self.Seconds_LCD.setFont(font)
         self.Seconds_LCD.setProperty("intValue", 53)
         self.Seconds_LCD.setObjectName("Seconds_LCD")
-        self.gridLayout.addWidget(self.Seconds_LCD, 0, 3, 1, 1)
-        self.verticalLayout = QtWidgets.QVBoxLayout()
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setContentsMargins(-1, 5, -1, -1)
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
+        self.Minutes_LCD = QtWidgets.QLCDNumber(self.centralwidget)
+        self.Minutes_LCD.setGeometry(QtCore.QRect(570, 10, 80, 31))
+        self.Minutes_LCD.setMaximumSize(QtCore.QSize(80, 200))
+        self.Minutes_LCD.setStyleSheet("")
+        self.Minutes_LCD.setProperty("intValue", 20)
+        self.Minutes_LCD.setObjectName("Minutes_LCD")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(670, 10, 16, 31))
+        self.label.setMaximumSize(QtCore.QSize(20, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label.setFont(font)
+        self.label.setStyleSheet("color: white;")
+        self.label.setObjectName("label")
+        self.groupBox_4 = QtWidgets.QGroupBox(self.centralwidget)
+        self.groupBox_4.setGeometry(QtCore.QRect(30, 50, 611, 361))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
         font.setWeight(75)
-        self.groupBox.setFont(font)
-        self.groupBox.setStyleSheet("color: white;")
-        self.groupBox.setObjectName("groupBox")
-        self.gridLayout_3 = QtWidgets.QGridLayout(self.groupBox)
-        self.gridLayout_3.setContentsMargins(-1, 30, -1, -1)
-        self.gridLayout_3.setVerticalSpacing(6)
-        self.gridLayout_3.setObjectName("gridLayout_3")
-        self.inventory_table = QtWidgets.QTableWidget(self.groupBox)
+        self.groupBox_4.setFont(font)
+        self.groupBox_4.setStyleSheet("color: white;")
+        self.groupBox_4.setObjectName("groupBox_4")
+        self.inventory_table = QtWidgets.QTableWidget(self.groupBox_4)
+        self.inventory_table.setGeometry(QtCore.QRect(100, 20, 421, 331))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -166,20 +178,17 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.inventory_table.setItem(7, 2, item)
         self.inventory_table.horizontalHeader().setDefaultSectionSize(132)
-        self.gridLayout_3.addWidget(self.inventory_table, 0, 0, 1, 1)
-        self.horizontalLayout.addWidget(self.groupBox)
-        self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
+        self.groupBox_5 = QtWidgets.QGroupBox(self.centralwidget)
+        self.groupBox_5.setGeometry(QtCore.QRect(670, 50, 731, 361))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
         font.setWeight(75)
-        self.groupBox_2.setFont(font)
-        self.groupBox_2.setStyleSheet("color: white;\n"
-"")
-        self.groupBox_2.setObjectName("groupBox_2")
-        self.gridLayout_2 = QtWidgets.QGridLayout(self.groupBox_2)
-        self.gridLayout_2.setObjectName("gridLayout_2")
-        self.hospitals_table = QtWidgets.QTableWidget(self.groupBox_2)
+        self.groupBox_5.setFont(font)
+        self.groupBox_5.setStyleSheet("color: white;")
+        self.groupBox_5.setObjectName("groupBox_5")
+        self.hospitals_table = QtWidgets.QTableWidget(self.groupBox_5)
+        self.hospitals_table.setGeometry(QtCore.QRect(110, 20, 521, 331))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -292,27 +301,23 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.hospitals_table.setItem(7, 2, item)
         self.hospitals_table.horizontalHeader().setDefaultSectionSize(166)
-        self.gridLayout_2.addWidget(self.hospitals_table, 0, 0, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
-        self.horizontalLayout.addWidget(self.groupBox_2)
-        self.verticalLayout.addLayout(self.horizontalLayout)
-        self.groupBox_3 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox_3.setMinimumSize(QtCore.QSize(0, 339))
+        self.groupBox_6 = QtWidgets.QGroupBox(self.centralwidget)
+        self.groupBox_6.setGeometry(QtCore.QRect(30, 420, 1371, 391))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
         font.setWeight(75)
-        self.groupBox_3.setFont(font)
-        self.groupBox_3.setStyleSheet("color: white;")
-        self.groupBox_3.setObjectName("groupBox_3")
-        self.gridLayout_4 = QtWidgets.QGridLayout(self.groupBox_3)
-        self.gridLayout_4.setObjectName("gridLayout_4")
-        self.orders_table = QtWidgets.QTableWidget(self.groupBox_3)
+        self.groupBox_6.setFont(font)
+        self.groupBox_6.setStyleSheet("color: white;")
+        self.groupBox_6.setObjectName("groupBox_6")
+        self.orders_table = QtWidgets.QTableWidget(self.groupBox_6)
+        self.orders_table.setGeometry(QtCore.QRect(20, 30, 681, 251))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.orders_table.sizePolicy().hasHeightForWidth())
         self.orders_table.setSizePolicy(sizePolicy)
-        self.orders_table.setMinimumSize(QtCore.QSize(534, 267))
+        self.orders_table.setMinimumSize(QtCore.QSize(0, 0))
         self.orders_table.setStyleSheet("\n"
 "QHeaderView::section {\n"
 "    background-color:rgb(0, 99, 73);\n"
@@ -330,7 +335,7 @@ class Ui_MainWindow(object):
 "}")
         self.orders_table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.orders_table.setObjectName("orders_table")
-        self.orders_table.setColumnCount(4)
+        self.orders_table.setColumnCount(5)
         self.orders_table.setRowCount(8)
         item = QtWidgets.QTableWidgetItem()
         self.orders_table.setVerticalHeaderItem(0, item)
@@ -377,6 +382,13 @@ class Ui_MainWindow(object):
         item.setFont(font)
         self.orders_table.setHorizontalHeaderItem(3, item)
         item = QtWidgets.QTableWidgetItem()
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        item.setFont(font)
+        self.orders_table.setHorizontalHeaderItem(4, item)
+        item = QtWidgets.QTableWidgetItem()
         self.orders_table.setItem(0, 0, item)
         item = QtWidgets.QTableWidgetItem()
         self.orders_table.setItem(1, 0, item)
@@ -393,14 +405,58 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.orders_table.setItem(7, 0, item)
         self.orders_table.horizontalHeader().setDefaultSectionSize(127)
-        self.gridLayout_4.addWidget(self.orders_table, 0, 0, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
-        self.output_table = QtWidgets.QTableWidget(self.groupBox_3)
+        self.stop_button = QtWidgets.QPushButton(self.groupBox_6)
+        self.stop_button.setGeometry(QtCore.QRect(210, 310, 171, 41))
+        self.stop_button.setMinimumSize(QtCore.QSize(171, 0))
+        self.stop_button.setMaximumSize(QtCore.QSize(300, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.stop_button.setFont(font)
+        self.stop_button.setStyleSheet("QPushButton {\n"
+"    background-color: #E0115F; \n"
+"    color: white;\n"
+"    border-radius: 8px;\n"
+"    padding: 5px 10px;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #B00D4C;\n"
+"    border: 1.2px inset gray;\n"
+"}\n"
+"")
+        self.stop_button.setObjectName("stop_button")
+        self.start_button = QtWidgets.QPushButton(self.groupBox_6)
+        self.start_button.setGeometry(QtCore.QRect(980, 320, 171, 41))
+        self.start_button.setMinimumSize(QtCore.QSize(171, 0))
+        self.start_button.setMaximumSize(QtCore.QSize(300, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.start_button.setFont(font)
+        self.start_button.setStyleSheet("QPushButton {\n"
+"    background-color: #00A86B; \n"
+"    color: white;\n"
+"    border-radius: 8px;\n"
+"    padding: 5px 10px;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #00804D;\n"
+"    border: 1.2px inset gray;\n"
+"}\n"
+"")
+        self.start_button.setObjectName("start_button")
+        self.output_table = QtWidgets.QTableWidget(self.groupBox_6)
+        self.output_table.setGeometry(QtCore.QRect(760, 30, 581, 251))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.output_table.sizePolicy().hasHeightForWidth())
         self.output_table.setSizePolicy(sizePolicy)
-        self.output_table.setMinimumSize(QtCore.QSize(561, 267))
+        self.output_table.setMinimumSize(QtCore.QSize(0, 0))
         self.output_table.setStyleSheet("\n"
 "QHeaderView::section {\n"
 "    background-color:rgb(0, 99, 73);\n"
@@ -481,73 +537,6 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.output_table.setItem(7, 0, item)
         self.output_table.horizontalHeader().setDefaultSectionSize(134)
-        self.gridLayout_4.addWidget(self.output_table, 0, 1, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
-        self.stop_button = QtWidgets.QPushButton(self.groupBox_3)
-        self.stop_button.setMinimumSize(QtCore.QSize(171, 0))
-        self.stop_button.setMaximumSize(QtCore.QSize(300, 16777215))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.stop_button.setFont(font)
-        self.stop_button.setStyleSheet("QPushButton {\n"
-"    background-color: #E0115F; \n"
-"    color: white;\n"
-"    border-radius: 8px;\n"
-"    padding: 5px 10px;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #B00D4C;\n"
-"    border: 1.2px inset gray;\n"
-"}\n"
-"")
-        self.stop_button.setObjectName("stop_button")
-        self.gridLayout_4.addWidget(self.stop_button, 1, 0, 1, 1, QtCore.Qt.AlignHCenter)
-        self.start_button = QtWidgets.QPushButton(self.groupBox_3)
-        self.start_button.setMinimumSize(QtCore.QSize(171, 0))
-        self.start_button.setMaximumSize(QtCore.QSize(300, 16777215))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.start_button.setFont(font)
-        self.start_button.setStyleSheet("QPushButton {\n"
-"    background-color: #00A86B; \n"
-"    color: white;\n"
-"    border-radius: 8px;\n"
-"    padding: 5px 10px;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #00804D;\n"
-"    border: 1.2px inset gray;\n"
-"}\n"
-"")
-        self.start_button.setObjectName("start_button")
-        self.gridLayout_4.addWidget(self.start_button, 1, 1, 1, 1, QtCore.Qt.AlignHCenter)
-        self.verticalLayout.addWidget(self.groupBox_3)
-        self.gridLayout.addLayout(self.verticalLayout, 2, 0, 1, 6)
-        self.Minutes_LCD = QtWidgets.QLCDNumber(self.centralwidget)
-        self.Minutes_LCD.setMaximumSize(QtCore.QSize(80, 200))
-        self.Minutes_LCD.setStyleSheet("")
-        self.Minutes_LCD.setProperty("intValue", 20)
-        self.Minutes_LCD.setObjectName("Minutes_LCD")
-        self.gridLayout.addWidget(self.Minutes_LCD, 0, 1, 1, 1, QtCore.Qt.AlignHCenter)
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setMaximumSize(QtCore.QSize(20, 16777215))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label.setFont(font)
-        self.label.setStyleSheet("color: white;")
-        self.label.setObjectName("label")
-        self.gridLayout.addWidget(self.label, 0, 2, 1, 1)
-        spacerItem = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem1, 0, 4, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -556,7 +545,8 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Blood Bank Dashboard"))
-        self.groupBox.setTitle(_translate("MainWindow", "Inventroy"))
+        self.label.setText(_translate("MainWindow", ":"))
+        self.groupBox_4.setTitle(_translate("MainWindow", "Inventory"))
         item = self.inventory_table.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "1"))
         item = self.inventory_table.verticalHeaderItem(1)
@@ -630,7 +620,7 @@ class Ui_MainWindow(object):
         item = self.inventory_table.item(7, 2)
         item.setText(_translate("MainWindow", "Whole blood"))
         self.inventory_table.setSortingEnabled(__sortingEnabled)
-        self.groupBox_2.setTitle(_translate("MainWindow", "Hospitals "))
+        self.groupBox_5.setTitle(_translate("MainWindow", "Hospitals"))
         item = self.hospitals_table.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "1"))
         item = self.hospitals_table.verticalHeaderItem(1)
@@ -704,7 +694,7 @@ class Ui_MainWindow(object):
         item = self.hospitals_table.item(7, 2)
         item.setText(_translate("MainWindow", "C"))
         self.hospitals_table.setSortingEnabled(__sortingEnabled)
-        self.groupBox_3.setTitle(_translate("MainWindow", "Orders"))
+        self.groupBox_6.setTitle(_translate("MainWindow", "Orders"))
         item = self.orders_table.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "1"))
         item = self.orders_table.verticalHeaderItem(1)
@@ -728,10 +718,14 @@ class Ui_MainWindow(object):
         item = self.orders_table.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Hospital"))
         item = self.orders_table.horizontalHeaderItem(3)
-        item.setText(_translate("MainWindow", "Urgency"))
+        item.setText(_translate("MainWindow", "Time"))
+        item = self.orders_table.horizontalHeaderItem(4)
+        item.setText(_translate("MainWindow", "Remaining"))
         __sortingEnabled = self.orders_table.isSortingEnabled()
         self.orders_table.setSortingEnabled(False)
         self.orders_table.setSortingEnabled(__sortingEnabled)
+        self.stop_button.setText(_translate("MainWindow", "Stop Simulation"))
+        self.start_button.setText(_translate("MainWindow", "Start Simulation"))
         item = self.output_table.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "6"))
         item = self.output_table.verticalHeaderItem(1)
@@ -759,9 +753,6 @@ class Ui_MainWindow(object):
         __sortingEnabled = self.output_table.isSortingEnabled()
         self.output_table.setSortingEnabled(False)
         self.output_table.setSortingEnabled(__sortingEnabled)
-        self.stop_button.setText(_translate("MainWindow", "Stop Simulation"))
-        self.start_button.setText(_translate("MainWindow", "Start Simulation"))
-        self.label.setText(_translate("MainWindow", ":"))
 
 
 if __name__ == "__main__":
