@@ -1,46 +1,44 @@
 class AllocationEngine:
     def allocate(self, hospitals, blood_banks):
-          score={}
-          for i in range (len(hospitals)):
-            beds= hospitals[i].beds
-            requestTime= hospitals[i].requestTime
-            remaningBags= hospitals[i].remaningBags
-            score[hospitals[i].id] = int(10*requestTime + 7*(1/remaningBags) + 3*beds)
-          
-          sorted_hospitals = sorted(hospitals, key=lambda h: score[h.id], reverse=True)
-          for hospital in sorted_hospitals:
-            print(f"Hospital ID: {hospital.id}, Score: {score[hospital.id]}")
+      score = {} # Dictionary to store the score of each hospital
 
-          for i in range (len(sorted_hospitals)):
-            bloodType = sorted_hospitals[i].bloodType
-            numberofBags = sorted_hospitals[i].numberofBags
-            for j in range (len(blood_banks)):
-              if blood_banks[j].bloodType == bloodType:
-                if numberofBags <= blood_banks[j].stock:
-                  print(f"Blood Bank ID: {blood_banks[j].id}, Blood Type: {blood_banks[j].bloodType}, Stock: {blood_banks[j].stock}")
-                  blood_banks[j].stock -= numberofBags
-                  print(f"Hospital ID: {sorted_hospitals[i].id}, Blood Type: {sorted_hospitals[i].bloodType}, Number of Bags: {sorted_hospitals[i].numberofBags}, NumberofBagsinStock: {blood_banks[j].stock}" )
-                  break
-                else:
-                  print(f"Blood Bank ID: {blood_banks[j].id}, Blood Type: {blood_banks[j].bloodType}, Stock: {blood_banks[j].stock}")
-                  numberofBags -= blood_banks[j].stock 
-                  blood_banks[j].stock = 0
-                  print(f"Hospital ID: {sorted_hospitals[i].id}, Blood Type: {sorted_hospitals[i].bloodType}, Number of Bags: {sorted_hospitals[i].numberofBags}, NumberofBagsinStock: {blood_banks[j].stock}" )
-            
-          
-        
-
-
-          
-        
-
-
-        
-
-        
-
+      blood_bank_dict = {} # Dictionary to store the blood banks with the same blood type
+      for bank in blood_banks:
+          if bank.bloodType not in blood_bank_dict:
+              blood_bank_dict[bank.bloodType] = []
+          blood_bank_dict[bank.bloodType].append(bank)
+      print(blood_bank_dict)
       
-     
+      for hospital in hospitals: 
+          beds = hospital.beds
+          requestTime = hospital.requestTime
+          remaningBags = hospital.remaningBags
+          score[hospital.id] = int(10 * requestTime + 7 * (1 / remaningBags) + 3 * beds)
+          print(f"Hospital ID: {hospital.id}, Score: {score[hospital.id]}")
+      
+      sorted_hospitals = sorted(hospitals, key=lambda h: score[h.id], reverse=True) # O(nlogn) complexity
+      
+      # Step 5: Allocate blood bags to hospitals using the blood bank dictiona and update the stock of blood bags in the blood banks
+    
+      for hospital in sorted_hospitals: # O(n) complexity
+          bloodType = hospital.bloodType 
+          numberofBags = hospital.numberofBags 
+          if bloodType in blood_bank_dict:                          # Check if blood type is available in blood bank dictionary / O(1) complexity as in operator has O(1) complexity in dictionaries.
+              for bank in blood_bank_dict[bloodType]:               # Iterate through blood banks with the same blood type / O(n * k) complexity, however k is always 1, so O(n).
+                  if numberofBags <= bank.stock:                    # Check if the blood bank has enough stock
+                      print(f"Blood Bank ID: {bank.id}, Blood Type: {bank.bloodType}, Stock: {bank.stock}")
+                      bank.stock -= numberofBags
+                      print(f"Hospital ID: {hospital.id}, Blood Type: {hospital.bloodType}, Number of Bags: {hospital.numberofBags}, NumberofBagsinStock: {bank.stock}")
+                      break
+                  else: # If the blood bank does not have enough stock, allocate all available stock
+                      print(f"Blood Bank ID: {bank.id}, Blood Type: {bank.bloodType}, Stock: {bank.stock}")
+                      numberofBags -= bank.stock 
+                      bank.stock = 0 
+                      print(f"Hospital ID: {hospital.id}, Blood Type: {hospital.bloodType}, Number of Bags: {hospital.numberofBags}, NumberofBagsinStock: {bank.stock}")
+      
+      # Print the allocation details
+      # Print the updated stock of blood bags in the blood banks
+      # Print the remaining number of bags in the hospitals
 
 class Hospital:
     def __init__(self, id, beds, requestTime, remaningBags, bloodType, numberofBags):
@@ -55,7 +53,7 @@ hospitals = [
     Hospital(1, 100, 4, 50, "A+", 10),
     Hospital(2, 150, 5, 30, "A-", 8),
     Hospital(3, 200, 8, 20, "B+", 15),
-    Hospital(4, 250, 10, 10, "O+", 20),
+    Hospital(4, 250, 10, 10, "O+", 200),
     Hospital(5, 300, 9, 5, "AB+", 25)
 ]
 
@@ -76,6 +74,3 @@ blood_banks = [
 ]
 main = AllocationEngine()
 main.allocate(hospitals, blood_banks)
-
-
-   
