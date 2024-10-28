@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
-from app import AppManager
+from app_logic import AppManager
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -367,7 +367,7 @@ class Ui_MainWindow(object):
         self.orders_table.setHorizontalHeaderItem(4, item)
         item = QtWidgets.QTableWidgetItem()
         self.orders_table.horizontalHeader().setDefaultSectionSize(127)
-        self.stop_button = QtWidgets.QPushButton(self.groupBox_6)
+        self.stop_button = QtWidgets.QPushButton(self.groupBox_6, clicked=lambda: app_manager.stop_simulation())
         self.stop_button.setGeometry(QtCore.QRect(210, 310, 171, 41))
         self.stop_button.setMinimumSize(QtCore.QSize(171, 0))
         self.stop_button.setMaximumSize(QtCore.QSize(300, 16777215))
@@ -389,7 +389,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.stop_button.setObjectName("stop_button")
-        self.start_button = QtWidgets.QPushButton(self.groupBox_6)
+        self.start_button = QtWidgets.QPushButton(self.groupBox_6, clicked=lambda: app_manager.start())
         self.start_button.setGeometry(QtCore.QRect(980, 320, 171, 41))
         self.start_button.setMinimumSize(QtCore.QSize(171, 0))
         self.start_button.setMaximumSize(QtCore.QSize(300, 16777215))
@@ -503,9 +503,6 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-        self.start_button.clicked.connect(lambda: app_manager.start())
-        self.stop_button.clicked.connect(lambda: app_manager.stop_simulation())
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
