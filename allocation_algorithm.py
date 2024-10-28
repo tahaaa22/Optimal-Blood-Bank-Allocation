@@ -44,12 +44,13 @@ class AllocationEngine:
             if numberofBags <= app.INVENTORY[bloodType]:                    # Check if the blood bank has enough stock
                 
                 app.INVENTORY[bloodType] -= numberofBags
-                request.remaining_blood_bags=app.INVENTORY[bloodType]
-                print(f"Hospital ID: {request.hospital.id}, Blood Type: {request.blood_type}, Number of Bags: {request.number_of_blood_bags}, NumberofBagsinStock: {request.remaining_blood_bags}")
+                stock=app.INVENTORY[bloodType]
+                print(f"Hospital ID: {request.hospital.id}, Blood Type: {request.blood_type}, Number of Bags: {request.number_of_blood_bags}, NumberofBagsinStock: {stock}")
                 break
             else: # If the blood bank does not have enough stock, allocate all available stock
                 
                 numberofBags -= app.INVENTORY[bloodType]
                 app.INVENTORY[bloodType] = 0
-                request.remaining_blood_bags=numberofBags
-                print(f"Hospital ID: {request.hospital.id}, Blood Type: {request.blood_type}, Number of Bags: {request.number_of_blood_bags}, NumberofBagsinStock: {request.remaining_blood_bags}")
+                stock=0
+                request.number_of_blood_bags =numberofBags
+                print(f"Hospital ID: {request.hospital.id}, Blood Type: {request.blood_type}, Number of Bags: {request.number_of_blood_bags}, NumberofBagsinStock: {stock}")
