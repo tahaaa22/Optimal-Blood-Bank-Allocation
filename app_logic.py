@@ -123,5 +123,6 @@ class AppManager():
         pass
 
     def distribute_blood(self):
-        AllocationEngine.allocate(self)
+        allocate_engine = AllocationEngine()
+        allocate_engine.allocate(self)
         
