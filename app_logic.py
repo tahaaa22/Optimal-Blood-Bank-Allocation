@@ -74,7 +74,7 @@ class AppManager():
         blood_type = random.choice(self.BLOOD_TYPES)
         number_of_blood_bags = random.randint(500, 1000)
         remaining_blood_bags = random.randint(100, 200)
-        return Request(hospital, blood_type, number_of_blood_bags, remaining_blood_bags)
+        return Request(hospital, blood_type, number_of_blood_bags, remaining_blood_bags, self.hours, self.minutes)
 
     def print_request(self):
         request = self.create_request()
@@ -84,11 +84,11 @@ class AppManager():
             item = QtWidgets.QTableWidgetItem()
             self.ui.orders_table.setItem(self.number_of_requests, i, item)
 
-        self.ui.orders_table.item(self.number_of_requests, 0).setText(self._translate("MainWindow", request.hospital.name))
-        self.ui.orders_table.item(self.number_of_requests, 1).setText(self._translate("MainWindow", request.blood_type))
-        self.ui.orders_table.item(self.number_of_requests, 2).setText(self._translate("MainWindow", request.number_of_blood_bags))
-        self.ui.orders_table.item(self.number_of_requests, 3).setText(self._translate("MainWindow", request.remaining_blood_bags))
-        self.ui.orders_table.item(self.number_of_requests, 4).setText(self._translate("MainWindow", f"{self.hours}:{self.minutes}"))
+        self.ui.orders_table.item(self.number_of_requests, 0).setText(self._translate("MainWindow", str(request.hospital.name)))
+        self.ui.orders_table.item(self.number_of_requests, 1).setText(self._translate("MainWindow", str(request.blood_type)))
+        self.ui.orders_table.item(self.number_of_requests, 2).setText(self._translate("MainWindow", str(request.number_of_blood_bags)))
+        self.ui.orders_table.item(self.number_of_requests, 3).setText(self._translate("MainWindow", str(request.remaining_blood_bags)))
+        self.ui.orders_table.item(self.number_of_requests, 4).setText(self._translate("MainWindow", f"{str(self.hours)}:{str(self.minutes)}"))
         self.number_of_requests += 1
         self.requests.append(request)
 
