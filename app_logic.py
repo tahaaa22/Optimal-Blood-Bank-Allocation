@@ -24,11 +24,6 @@ class AppManager():
         self.initiate_paramters()
         
     def start(self):
-        dialog = QMessageBox()
-        dialog.setText("Simulation started")
-        dialog.setWindowTitle("Simulation")
-        dialog.setIcon(QMessageBox.Information)
-        dialog.exec()
         self.stop_thread = False
         self.simulation_thread = threading.Thread(target=self.simulate_requests)
         self.simulation_thread.start()
@@ -61,11 +56,6 @@ class AppManager():
         self.ui.Minutes_LCD.display(self.hours)
 
     def stop_simulation(self):
-        dialog = QMessageBox()
-        dialog.setText("Simulation stopped")
-        dialog.setWindowTitle("Simulation")
-        dialog.setIcon(QMessageBox.Information)
-        dialog.exec()
         self.stop_thread = True  
         
     def create_request(self):
@@ -74,7 +64,7 @@ class AppManager():
         blood_type = random.choice(self.BLOOD_TYPES)
         number_of_blood_bags = random.randint(500, 1000)
         remaining_blood_bags = random.randint(100, 200)
-        return Request(hospital, blood_type, number_of_blood_bags, remaining_blood_bags, self.hours, self.minutes)
+        return Request(self.number_of_requests, hospital, blood_type, number_of_blood_bags, remaining_blood_bags, self.hours, self.minutes)
 
     def print_request(self):
         request = self.create_request()
@@ -124,5 +114,4 @@ class AppManager():
 
     def distribute_blood(self):
         allocate_engine = AllocationEngine()
-        allocate_engine.allocate(self)
-        
+        sorted_requests = allocate_engine.allocate(self)

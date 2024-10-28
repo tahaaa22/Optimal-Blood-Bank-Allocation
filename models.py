@@ -7,7 +7,8 @@ class Hospital:
 
 
 class Request:
-    def __init__(self, hospital, blood_type, number_of_blood_bags, remaining_blood_bags, hours, minutes):
+    def __init__(self,id, hospital, blood_type, number_of_blood_bags, remaining_blood_bags, hours, minutes):
+        self.id = id
         self.hospital = hospital
         self.blood_type = blood_type
         self.number_of_blood_bags = number_of_blood_bags
@@ -16,4 +17,4 @@ class Request:
         self.minutes = minutes
 
     def __str__(self) -> str:
-        return f"Request from hospital {self.hospital_id} for {self.number_of_blood_bags} bags of {self.blood_type} blood. {self.remaining_blood_bags} bags remaining."
+        return f"Request from hospital {self.hospital.id} for {self.number_of_blood_bags} bags of {self.blood_type} blood. {self.remaining_blood_bags} bags remaining."
