@@ -39,11 +39,11 @@ class AppManager():
         # We distribute blood every 30 minutes
         while not self.stop_thread:
             self.update_time()
-            if (self.minutes % 10 == 0):
+            if self.minutes % 10 == 0:
                 self.print_request()
-            if (self.minutes % 20 == 0):
+            if self.minutes % 20 == 0:
                 self.receive_donation()
-            if (self.minutes % 30 == 0):
+            if self.minutes % 30 == 0:
                 self.distribute_blood()
             time.sleep(0.2)
 
@@ -119,6 +119,7 @@ class AppManager():
         pass
 
     def update_output(self):
+        # TODO update output table
         pass
 
     def distribute_blood(self):
