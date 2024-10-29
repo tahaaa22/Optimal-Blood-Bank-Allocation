@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtWidgets
 from models import Request, Hospital
 from PyQt5.QtWidgets import QMessageBox
-from allocation_algorithm import AllocationEngine
+from allocation_algorithm import allocate
 import random
 import time
 import threading
@@ -105,13 +105,49 @@ class AppManager():
         self.update_inventory()
 
     def update_inventory(self):
-        # TODO update inventory table
-        pass
+        # Clear existing table data
+        self.ui.inventory_table.setRowCount(0)
+        
+        # Iterate over blood types in the INVENTORY dictionary
+        for row_index, (blood_type, remaining_bags) in enumerate(self.INVENTORY.items()):
+            self.ui.inventory_table.insertRow(row_index)
+            
+            # Create table items for each column
+            blood_type_item = QtWidgets.QTableWidgetItem(blood_type)
+            remaining_bags_item = QtWidgets.QTableWidgetItem(str(remaining_bags))
+            component_item = QtWidgets.QTableWidgetItem("Whole blood")  # Assuming "Whole blood" for each type
+            
+            # Set items in the corresponding columns
+            self.ui.inventory_table.setItem(row_index, 0, blood_type_item)
+            self.ui.inventory_table.setItem(row_index, 1, remaining_bags_item)
+            self.ui.inventory_table.setItem(row_index, 2, component_item)
 
-    def update_output(self):
-        # TODO update output table
-        pass
+    def update_output(self, requests):
+        self.ui.output_table.setRowCount(0)
+
+        # Iterate through the requests list to populate the table
+        for row_index, request in enumerate(requests):
+            self.ui.output_table.insertRow(row_index)
+            
+            # Assuming `request` has attributes: blood_type, needed_bags, hospital, status
+            blood_type_item = QtWidgets.QTableWidgetItem(request.blood_type)
+            needed_bags_item = QtWidgets.QTableWidgetItem(str(request.number_of_blood_bags))
+            hospital_item = QtWidgets.QTableWidgetItem(request.hospital.name)
+            status_item = QtWidgets.QTableWidgetItem("Fulfilled")
+
+            # Insert data into the corresponding columns
+            self.ui.output_table.setItem(row_index, 0, blood_type_item)
+            self.ui.output_table.setItem(row_index, 1, needed_bags_item)
+            self.ui.output_table.setItem(row_index, 2, hospital_item)
+            self.ui.output_table.setItem(row_index, 3, status_item)
 
     def distribute_blood(self):
-        allocate_engine = AllocationEngine()
-        sorted_requests = allocate_engine.allocate(self)
+        sorted_requests = allocate(self)
+        requests_to_be_fulfilled = [] # first we need to check that we are capable of fulfilling the request
+        for request in sorted_requests:
+            if self.INVENTORY[request.blood_type] >= request.number_of_blood_bags:
+                requests_to_be_fulfilled.append(request)
+                sorted_requests.remove(request)
+                self.INVENTORY[request.blood_type] -= request.number_of_blood_bags
+        self.requests = sorted_requests
+        self.update_output(requests_to_be_fulfilled)

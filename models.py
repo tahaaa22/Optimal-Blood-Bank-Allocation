@@ -7,7 +7,7 @@ class Hospital:
 
 
 class Request:
-    def __init__(self,id, hospital, blood_type, number_of_blood_bags, remaining_blood_bags, hours, minutes):
+    def __init__(self, id, hospital, blood_type, number_of_blood_bags, remaining_blood_bags, hours, minutes):
         self.id = id
         self.hospital = hospital
         self.blood_type = blood_type
